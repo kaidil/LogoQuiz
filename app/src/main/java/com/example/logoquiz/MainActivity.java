@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.logoquiz.Adapter.GridViewAnswerAdapter;
@@ -29,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
     public GridView gridViewAnswer, gridViewSuggest;
 
     public ImageView imgViewQuestion;
+
+    public long startTime;
+    public long endTime;
+    public long timeElapsed;
+
+    public int totalPoints = 0;
 
     int[] image_list={
 
@@ -62,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
     String correct_answer;
 
+    TextView pointsTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(), "Finish ! This is "+result, Toast.LENGTH_SHORT).show();
 
+                    endTime = System.nanoTime();
+                    System.out.println("Hit Submit: " + endTime);
+
+                    countPoints();
+
+
                     // Reset
                     Common.count = 0;
                     Common.user_submit_answer = new char[correct_answer.length()];
@@ -116,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupList() {
         //Random logo
+        startTime = System.nanoTime();
+        System.out.println("Start logo: " + startTime);
+
         Random random = new Random();
         int imageSelected = image_list[random.nextInt(image_list.length)];
         imgViewQuestion.setImageResource(imageSelected);
@@ -152,6 +171,37 @@ public class MainActivity extends AppCompatActivity {
         gridViewSuggest.setAdapter(suggestAdapter);
         gridViewAnswer.setAdapter(answerAdapter);
 
+    }
+
+    private void countPoints(){
+        int quizPoints = 0;
+        timeElapsed = (endTime - startTime) / 1000000000;
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!TIME DIFFERENCE IS: " + timeElapsed);
+        //ArrayList totalPoints = new ArrayList();
+        if (timeElapsed <= 1) {
+            quizPoints = 20;
+        } else if (timeElapsed <= 3) {
+            quizPoints = 18;
+        } else if (timeElapsed <= 5) {
+            quizPoints = 16;
+        } else if (timeElapsed <= 7) {
+            quizPoints = 14;
+        } else if (timeElapsed <= 9) {
+            quizPoints = 12;
+        } else if (timeElapsed <= 12) {
+            quizPoints = 10;
+        } else if (timeElapsed <= 15) {
+            quizPoints =  8;
+        } else if (timeElapsed <= 18) {
+            quizPoints = 6;
+        } else if (timeElapsed <= 21) {
+            quizPoints = 4;
+        } else if (timeElapsed > 21) {
+            quizPoints = 2;
+        }
+        System.out.println("Quizpoints: " + quizPoints);
+        totalPoints = totalPoints + quizPoints;
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!Your points are: " + totalPoints);
     }
 
     private char[] setupNullList() {
