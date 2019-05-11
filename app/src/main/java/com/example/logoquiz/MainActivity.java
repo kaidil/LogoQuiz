@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+
 public class MainActivity extends AppCompatActivity {
 
     public List<String> suggestSource = new ArrayList<>();
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public long timeElapsed;
 
     public int totalPoints = 0;
+
+    TextView pointsDisplay;
 
     int[] image_list={
 
@@ -70,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     String correct_answer;
 
-    TextView pointsTextView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,12 +100,14 @@ public class MainActivity extends AppCompatActivity {
                     result+=String.valueOf(Common.user_submit_answer[i]);
                 if(result.equals(correct_answer))
                 {
-                    Toast.makeText(getApplicationContext(), "Finish ! This is "+result, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Correct ! This is "+result, Toast.LENGTH_SHORT).show();
 
                     endTime = System.nanoTime();
                     System.out.println("Hit Submit: " + endTime);
 
                     countPoints();
+                    pointsDisplay = (TextView)findViewById(R.id.pointsDisplay);
+                    pointsDisplay.setText("Teie punktid: " + totalPoints);
 
 
                     // Reset
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this, "Incorrect!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Incorrect! Try again.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
