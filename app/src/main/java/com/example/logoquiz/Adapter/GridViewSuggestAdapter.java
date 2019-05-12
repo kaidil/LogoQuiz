@@ -48,14 +48,14 @@ public class GridViewSuggestAdapter extends BaseAdapter {
             if(suggestSource.get(position).equals("null"))
             {
                 button = new Button(context);
-                button.setLayoutParams(new GridView.LayoutParams(85,85));
+                button.setLayoutParams(new GridView.LayoutParams(160,160));
                 button.setPadding(8, 8, 8, 8);
                 button.setBackgroundColor(Color.DKGRAY);
             }
             else
             {
                 button = new Button(context);
-                button.setLayoutParams(new GridView.LayoutParams(85,85));
+                button.setLayoutParams(new GridView.LayoutParams(160,160));
                 button.setPadding(8, 8, 8, 8);
                 button.setBackgroundColor(Color.DKGRAY);
                 button.setTextColor(Color.YELLOW);

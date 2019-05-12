@@ -39,9 +39,8 @@
             android:padding="4dp"
             android:horizontalSpacing="4dp"
             android:verticalSpacing="4dp"
-            android:columnWidth="40dp"
+            android:columnWidth="50dp"
             android:numColumns="auto_fit"
-            android:scrollbars="none"
             android:stretchMode="columnWidth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -52,9 +51,9 @@
             android:padding="4dp"
             android:horizontalSpacing="4dp"
             android:verticalSpacing="4dp"
-            android:columnWidth="40dp"
+            android:columnWidth="50dp"
             android:numColumns="auto_fit"
-            android:scrollbars="none"
+            android:scrollbars="vertical"
             android:stretchMode="columnWidth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
