@@ -8,7 +8,6 @@
     android:layout_gravity="center_horizontal"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_alignParentTop="true"
@@ -17,10 +16,21 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnSubmit">
 
+        <TextView
+            android:id="@+id/pointsDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:background="@android:color/holo_blue_dark"
+            android:paddingBottom="10dp"
+            android:textSize="25sp"
+            android:textColor="#fff" />
+
         <ImageView
             android:id="@+id/imgLogo"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="144dp"
             android:verticalSpacing="8dp"/>
 
         <GridView
@@ -47,18 +57,7 @@
             android:scrollbars="none"
             android:stretchMode="columnWidth"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/pointsDisplay"
-            android:layout_width="170dp"
-            android:layout_height="72dp"
-            android:layout_centerHorizontal="true"
-            android:textAlignment="center"
-            android:paddingBottom="10dp"
-            android:textSize="25sp"
-            android:textColor="#f00"
-            />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -67,7 +66,9 @@
         android:text="Submit"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/holo_blue_light"
+        android:textColor="#fff"/>
 
 </RelativeLayout>

@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Esialgne vaade
         initView();
 
     }
@@ -151,8 +150,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Correct ! This is "+result, Toast.LENGTH_SHORT).show();
 
                     endTime = System.nanoTime();
-                    System.out.println("Hit Submit: " + endTime);
-
                     countPoints();
                     pointsDisplay = (TextView)findViewById(R.id.pointsDisplay);
                     pointsDisplay.setText("Teie punktid: " + totalPoints);
@@ -167,7 +164,8 @@ public class MainActivity extends AppCompatActivity {
                     gridViewAnswer.setAdapter(answerAdapter);
                     answerAdapter.notifyDataSetChanged();
 
-                    GridViewSuggestAdapter suggestAdapter = new GridViewSuggestAdapter(suggestSource, getApplicationContext(), MainActivity.this);
+                    GridViewSuggestAdapter suggestAdapter = new GridViewSuggestAdapter(suggestSource, getApplicationContext(),
+                            MainActivity.this);
                     gridViewSuggest.setAdapter(suggestAdapter);
                     suggestAdapter.notifyDataSetChanged();
 
@@ -175,7 +173,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this, "Incorrect! Try again.", Toast.LENGTH_SHORT).show();
+                    if (totalPoints > 0) {
+                        Toast.makeText(MainActivity.this, "Incorrect!\n You lost 1 point! \n Try again.", Toast.
+                                LENGTH_SHORT).show();
+                        totalPoints = totalPoints - 1;
+                        pointsDisplay.setText("Teie punktid: " + totalPoints);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please write your answer!", Toast.
+                                LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -227,8 +233,6 @@ public class MainActivity extends AppCompatActivity {
     private void countPoints(){
         int quizPoints = 0;
         timeElapsed = (endTime - startTime) / 1000000000;
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!TIME DIFFERENCE IS: " + timeElapsed);
-        //ArrayList totalPoints = new ArrayList();
         if (timeElapsed <= 1) {
             quizPoints = 20;
         } else if (timeElapsed <= 3) {
@@ -250,10 +254,10 @@ public class MainActivity extends AppCompatActivity {
         } else if (timeElapsed > 21) {
             quizPoints = 2;
         }
-        System.out.println("Quizpoints: " + quizPoints);
         totalPoints = totalPoints + quizPoints;
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!Your points are: " + totalPoints);
     }
+
+
 
     private char[] setupNullList() {
         char result[] = new char[answer.length];
