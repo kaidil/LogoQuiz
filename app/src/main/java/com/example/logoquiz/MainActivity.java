@@ -39,14 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
     public int totalPoints = 0;
 
+    public int totalAnswers = 0;
+
     TextView pointsDisplay;
 
-    int[] image_list={
+    int[] imageListLevelOne={
 
             R.drawable.acer,
             R.drawable.adobe,
             R.drawable.adidas,
-            R.drawable.aglow,
             R.drawable.airbnb,
             R.drawable.alibaba,
             R.drawable.apple,
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.baskinrobbins,
             R.drawable.batman,
             R.drawable.beats,
-            R.drawable.bipolar,
             R.drawable.blogger,
             R.drawable.bmw,
             R.drawable.bp,
@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.lexus,
             R.drawable.lg,
             R.drawable.linkedin,
-            R.drawable.londonsymphonyorchestra,
             R.drawable.mcdonalds,
             R.drawable.mercedes,
             R.drawable.microsoft,
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.pinterest,
             R.drawable.playstation,
             R.drawable.pringles,
-            R.drawable.proctorgamble,
             R.drawable.roxy,
             R.drawable.scotiabank,
             R.drawable.sevenup,
@@ -115,6 +113,13 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.wordpress,
             R.drawable.xbox,
             R.drawable.yahoo
+    };
+
+    int[] imageListLevelTwo={
+            R.drawable.bipolar,
+            R.drawable.londonsymphonyorchestra,
+            R.drawable.proctorgamble,
+            R.drawable.aglow,
     };
 
     public char[] answer;
@@ -152,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     endTime = System.nanoTime();
                     countPoints();
                     pointsDisplay = (TextView)findViewById(R.id.pointsDisplay);
-                    pointsDisplay.setText("Teie punktid: " + totalPoints);
+                    pointsDisplay.setText("Your points: " + totalPoints);
 
 
                     // Reset
@@ -177,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Incorrect!\n You lost 1 point! \n Try again.", Toast.
                                 LENGTH_SHORT).show();
                         totalPoints = totalPoints - 1;
-                        pointsDisplay.setText("Teie punktid: " + totalPoints);
+                        pointsDisplay.setText("Your points: " + totalPoints);
                     } else {
                         Toast.makeText(MainActivity.this, "Please write your answer!", Toast.
                                 LENGTH_SHORT).show();
@@ -192,12 +197,24 @@ public class MainActivity extends AppCompatActivity {
         startTime = System.nanoTime();
         System.out.println("Start logo: " + startTime);
 
-        Random random = new Random();
-        int imageSelected = image_list[random.nextInt(image_list.length)];
-        imgViewQuestion.setImageResource(imageSelected);
+        pointsDisplay = (TextView)findViewById(R.id.pointsDisplay);
+        pointsDisplay.setText("Your points: " + totalPoints);
 
-        correct_answer = getResources().getResourceName(imageSelected);
-        correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/")+1);
+        Random random = new Random();
+
+        if(totalAnswers < 2 ){
+            int imageSelected = imageListLevelOne[random.nextInt(imageListLevelOne.length)];
+            imgViewQuestion.setImageResource(imageSelected);
+            correct_answer = getResources().getResourceName(imageSelected);
+            correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/")+1);
+            totalAnswers++;
+        } else {
+            int imageSelected = imageListLevelTwo[random.nextInt(imageListLevelTwo.length)];
+            imgViewQuestion.setImageResource(imageSelected);
+            correct_answer = getResources().getResourceName(imageSelected);
+            correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/")+1);
+        }
+
 
         answer = correct_answer.toCharArray();
 
