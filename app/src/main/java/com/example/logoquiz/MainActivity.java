@@ -1,5 +1,6 @@
 package com.example.logoquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.acer,
             R.drawable.adobe,
             R.drawable.adidas,
-            R.drawable.airbnb,
             R.drawable.alibaba,
             R.drawable.apple,
             R.drawable.audi,
@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.netflix,
             R.drawable.nike,
             R.drawable.pepsi,
-            R.drawable.philadelphiaeagles,
             R.drawable.photoshop,
             R.drawable.pinterest,
             R.drawable.playstation,
@@ -103,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.snapchat,
             R.drawable.starbucks,
             R.drawable.target,
-            R.drawable.telekom,
             R.drawable.total,
             R.drawable.toyota,
             R.drawable.twitter,
@@ -122,6 +120,13 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.bipolar,
             R.drawable.proctorgamble,
             R.drawable.aglow,
+            R.drawable.philadelphiaeagles,
+            R.drawable.airbnb,
+            R.drawable.telekom,
+            R.drawable.atari,
+            R.drawable.umbro,
+            R.drawable.infinity
+
     };
 
     int[] imageListLevelOne = shuffled(initialImageListLevelOne);
@@ -204,19 +209,26 @@ public class MainActivity extends AppCompatActivity {
         pointsDisplay = (TextView)findViewById(R.id.pointsDisplay);
         pointsDisplay.setText("Your points: " + totalPoints);
 
-        if(totalAnswers < 2 ){
+        if(totalAnswers < 5 ){
             int imageSelected = imageListLevelOne[imageListLevelOneIndex];
             imgViewQuestion.setImageResource(imageSelected);
             correct_answer = getResources().getResourceName(imageSelected);
             correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/")+1);
             totalAnswers++;
             imageListLevelOneIndex++;
-        } else {
+        } else if(totalAnswers < 10) {
             int imageSelected = imageListLevelTwo[imageListLevelTwoIndex];
             imgViewQuestion.setImageResource(imageSelected);
             correct_answer = getResources().getResourceName(imageSelected);
             correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/")+1);
             imageListLevelTwoIndex++;
+            totalAnswers++;
+        } else {
+            Intent intent = new Intent(this, ResetActivity.class);
+            Bundle extras = new Bundle();
+            extras.putString("strTotalPoints", totalPoints + "");
+            intent.putExtras(extras);
+            startActivity(intent);
         }
 
         answer = correct_answer.toCharArray();
