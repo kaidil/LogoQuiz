@@ -1,7 +1,7 @@
 # LogoQuiz
 
  ## Seadistamiseks:
-1. Kloonige või laadige projekt alla: [GitHub Pages](https://github.com/kaidil/LogoQuiz)
+1. Kloonige või laadige projekt alla: [https://github.com/kaidil/LogoQuiz] (https://github.com/kaidil/LogoQuiz).
 2. Avage projekt Android Studios
 3. Vajutage peamenüüst `Run`, valige oma seade ja `ok` (Buildimine võtab üksjagu aega!)
 4. Mäng avane Android seadmes
