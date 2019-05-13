@@ -18,4 +18,4 @@ Kaidi-Liis tegi valmis n.ö. projektipõhja peamiste funktsionaalsustega varem �
 Maritana ja Mihkel täiendasid projekti funktsionaalsustega, et mäng oleks täiuslikum. Samuti muutsid kujundust praemaks.
 
 ## DEMO
-Mängu demonstreeriv video asub [siin](link).
+Mängu demonstreeriv video asub [siin](https://youtu.be/QZ9L_m6mRfo).
