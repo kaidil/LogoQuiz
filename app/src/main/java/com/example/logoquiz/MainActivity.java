@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +14,7 @@ import com.example.logoquiz.Adapter.GridViewSuggestAdapter;
 import com.example.logoquiz.Common.Common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageView imgViewQuestion;
 
+    int imageListLevelOneIndex = 0;
+    int imageListLevelTwoIndex = 0;
+
     public long startTime;
     public long endTime;
     public long timeElapsed;
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView pointsDisplay;
 
-    int[] imageListLevelOne={
+    int[] initialImageListLevelOne={
 
             R.drawable.acer,
             R.drawable.adobe,
@@ -115,12 +118,14 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.yahoo
     };
 
-    int[] imageListLevelTwo={
+    int[] initialImageListLevelTwo={
             R.drawable.bipolar,
-            R.drawable.londonsymphonyorchestra,
             R.drawable.proctorgamble,
             R.drawable.aglow,
     };
+
+    int[] imageListLevelOne = shuffled(initialImageListLevelOne);
+    int[] imageListLevelTwo = shuffled(initialImageListLevelTwo);
 
     public char[] answer;
 
@@ -158,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
                     countPoints();
                     pointsDisplay = (TextView)findViewById(R.id.pointsDisplay);
                     pointsDisplay.setText("Your points: " + totalPoints);
-
 
                     // Reset
                     Common.count = 0;
@@ -200,21 +204,20 @@ public class MainActivity extends AppCompatActivity {
         pointsDisplay = (TextView)findViewById(R.id.pointsDisplay);
         pointsDisplay.setText("Your points: " + totalPoints);
 
-        Random random = new Random();
-
         if(totalAnswers < 2 ){
-            int imageSelected = imageListLevelOne[random.nextInt(imageListLevelOne.length)];
+            int imageSelected = imageListLevelOne[imageListLevelOneIndex];
             imgViewQuestion.setImageResource(imageSelected);
             correct_answer = getResources().getResourceName(imageSelected);
             correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/")+1);
             totalAnswers++;
+            imageListLevelOneIndex++;
         } else {
-            int imageSelected = imageListLevelTwo[random.nextInt(imageListLevelTwo.length)];
+            int imageSelected = imageListLevelTwo[imageListLevelTwoIndex];
             imgViewQuestion.setImageResource(imageSelected);
             correct_answer = getResources().getResourceName(imageSelected);
             correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/")+1);
+            imageListLevelTwoIndex++;
         }
-
 
         answer = correct_answer.toCharArray();
 
@@ -229,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Random add some character to list
+        Random random = new Random();
         for (int i=answer.length;i<answer.length*2;i++)
             suggestSource.add(Common.alphabet_character[random.nextInt(Common.alphabet_character.length)]);
 
@@ -274,12 +278,33 @@ public class MainActivity extends AppCompatActivity {
         totalPoints = totalPoints + quizPoints;
     }
 
-
-
     private char[] setupNullList() {
         char result[] = new char[answer.length];
         for (int i=0;i<answer.length;i++)
             result[i]=' ';
         return result;
+    }
+
+    public static <T> void shuffle(int[] arr) {
+        Random rand = new Random();
+        if (rand == null) {
+            rand = new Random();
+        }
+
+        for (int i = arr.length - 1; i > 0; i--) {
+            swap(arr, i, rand.nextInt(i + 1));
+        }
+    }
+
+    public static <T> void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
+    public static int[] shuffled(int[] arr) {
+        int[] copy = Arrays.copyOf(arr, arr.length);
+        shuffle(copy);
+        return copy;
     }
 }
